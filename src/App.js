@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+// App.js
+import React, { useState } from 'react';
 import './App.css';
+import SellerForm from './components/SellerForm';
+import SellerItemForm from './components/SellerItemForm';
+import Consumer from './components/Consumer';
+import CartButton from './components/CartButton';
+import Cart from './components/Cart';
+import Modal from './components/Modal';
+import CartProvider from './components/CartProvider';
 
 function App() {
+  const [sellerItems, setSellerItems] = useState([]);
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  };
+
+  const addItemHandler = (newItem) => {
+    setSellerItems((prevItems) => [...prevItems, newItem]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      {cartIsShown && (
+        <Modal onClose={hideCartHandler}>
+          <Cart onClose={hideCartHandler} />
+        </Modal>
+      )}
+
+      <SellerForm onAddItem={addItemHandler} />
+      <SellerItemForm items={sellerItems} />
+      <Consumer />
+      <CartButton onShowCart={showCartHandler} />
+    </CartProvider>
   );
 }
 
