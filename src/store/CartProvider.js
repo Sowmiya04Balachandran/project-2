@@ -63,13 +63,13 @@
 // export default CartProvider;
 
 import React, { useState } from 'react';
-import CartContext from './CartContext'; // Update the import if needed
+import CartContext from './Cart-Context'; // Update the import if needed
 
 export const CartProvider = (props) => {
     const [cartItems, setCartItems] = useState([]);
 
     const addItemHandler = (item) => {
-        setCartItems((prevItems) => [...prevItems, item]);
+        setCartItems((prevItems) => [...prevItems,{...item,quantity:1}]);
     };
 
     const clearCartHandler = () => {

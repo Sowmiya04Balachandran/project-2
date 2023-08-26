@@ -44,7 +44,7 @@
 
 import React, { useContext, useState } from 'react';
 import CartContext from '../../store/Cart-Context';
-
+import classes from './CartButton.module.css'
 import CartModal from '../Modal'; // Create CartModal component
 
 const CartButton = (props) => {
@@ -64,7 +64,7 @@ const CartButton = (props) => {
     };
 
     return (
-        <div>
+        <div className={classes.button}>
             <button onClick={showCartHandler} className={classes.button}>
                 Cart ({numberOfCartItems})
             </button>
